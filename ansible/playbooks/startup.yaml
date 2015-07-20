@@ -1,6 +1,6 @@
 ---
 
-- hosts: "INTERNAL:SERVICES"
+- hosts: "DATAMASTER:INTERNAL:SERVICES"
   connection: local
   # concurrency is controlled via ansible.cfg:forks=1!
   tasks:

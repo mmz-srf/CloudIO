@@ -1,5 +1,5 @@
 ---
-- hosts: "INTERNAL:SERVICES"
+- hosts: "SERVICES:INTERNAL:DATAMASTER"
   # concurrency is controlled via ansible.cfg:forks=1!
   tasks:
     - name: "Inform virtual machine that it will shut down soon"
