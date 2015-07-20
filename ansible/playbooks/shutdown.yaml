@@ -3,9 +3,7 @@
   # concurrency is controlled via ansible.cfg:forks=1!
   tasks:
     - name: "Inform virtual machine that it will shut down soon"
-      shell: |
-             hostname
-             /sbin/srf-mpc-prepare-hibernation
+      shell: /sbin/srf-mpc-prepare-hibernate
     - name: "Shutdown this machine"
       connection: local
       local_action: command cloudiosays-stopvm "{{ inventory_hostname }}"
