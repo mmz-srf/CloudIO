@@ -14,12 +14,29 @@ def inventory():
    projects = client.getProjectIds()
    for i in projects:
       client.setProjectID(i)
+      domain = client.getDomain()
       vmlist = client.getVMListByHame()
       sorted_vmlist = collections.OrderedDict(sorted(vmlist.items()))
       inventory.add_section(i)
       for vmname, vmdata in sorted_vmlist.iteritems():
-         inventory.set(i, vmname)
+         inventory.set(i, "%s.%s" %(vmname, domain) )
    inventory.write(sys.stdout)
+
+def startvm():
+   client = Cloudio.Cloudio()
+   client.enableHttpRequestLogging()
+   fqdn = sys.argv[1].split('.', 1)
+   client.setProjectID(fqdn[1])
+   jobid = client.startVM(fqdn[0])
+   client.obsessJob(jobid)
+
+def stopvm():
+   client = Cloudio.Cloudio()
+   client.enableHttpRequestLogging()
+   fqdn = sys.argv[1].split('.', 1)
+   client.setProjectID(fqdn[1])
+   jobid = client.stopVM(fqdn[0])
+   client.obsessJob(jobid)
 
 def main(argv = sys.argv[1:]):
    vmname = None
@@ -42,7 +59,9 @@ def main(argv = sys.argv[1:]):
       elif opt in ("-c", "--command"):
          command = arg
       elif opt in ("-v", "--vm"):
-         vmname = arg
+         parts = arg.split('.', 1)
+         vmname = parts[0]
+         if len(parts)>1: project = parts[1]
       elif opt in ("-o", "--obsess"):
          obsess = True
       elif opt in ("-d", "--debug"):

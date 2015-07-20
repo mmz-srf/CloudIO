@@ -30,6 +30,8 @@ class Cloudio(CloudStackClient):
 
   projectid = ""
 
+  domain = ""
+
   def __init__(self):
   
     self.config = self.read_config()
@@ -78,7 +80,9 @@ class Cloudio(CloudStackClient):
       projects = {}
       res = self.listProjects()
       for item in res['listprojectsresponse']['project']:
-        projects[item['name']] = item['id']
+        projects[item['name']] = {}
+        projects[item['name']]['id'] = item['id']
+        projects[item['name']]['domain'] = raw_input("Parent domain for all nodes in project %s: " % ( item['name'] ))
 
       pickle.dump(projects, open(project_filename, 'wb'))
 
@@ -142,9 +146,23 @@ class Cloudio(CloudStackClient):
         status = "Done"
 
   def setProjectID(self, projectname):
-    self.projectid = self.projects[projectname]
+    for name in self.projects:
+      if projectname == self.projects[name]['id'] or projectname == self.projects[name]['domain']:
+        projectname = name
+        break
+
+    if projectname in self.projects:
+      self.projectid = self.projects[projectname]['id']
+      self.domain = self.projects[projectname]['domain']
+
+  def getDomain(self):
+    return self.domain
+
   def getProjectIds(self):
-    return self.projects
+    ids = {}
+    for name in self.projects:
+      ids[name] = self.projects[name]['id']
+    return ids
 
   def printProjects(self):
     res = self.listProjects()

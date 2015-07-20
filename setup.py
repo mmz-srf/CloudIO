@@ -12,6 +12,8 @@ setup(name='CloudIO',
         [console_scripts]
         cloudiosays=CloudIO.cloudiosays:main
         cloudiosays-inventory=CloudIO.cloudiosays:inventory
+        cloudiosays-stopvm=CloudIO.cloudiosays:stopvm
+        cloudiosays-startvm=CloudIO.cloudiosays:startvm
     ''',
       packages=['CloudIO'],
       install_requires=['configparser'],
