@@ -1,9 +1,9 @@
 ---
 - hosts: "INTERNAL:SERVICES"
-  connection: local
   # concurrency is controlled via ansible.cfg:forks=1!
   tasks:
     - name: "Inform virtual machine that it will shut down soon"
       shell: /sbin/srf-mpc-prepare-hibernation
     - name: "Shutdown this machine"
+      connection: local
       local_action: command cloudiosays-stopvm "{{ inventory_hostname }}"
