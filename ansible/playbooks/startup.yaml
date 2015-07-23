@@ -12,6 +12,6 @@
   # concurrency is controlled via ansible.cfg:forks=1!
   tasks:
     - name: "timeout"
-      pause: seconds=600
+      pause: seconds=900
     - name: "Start this machine"
       local_action: command cloudiosays-startvm "{{ inventory_hostname }}"
