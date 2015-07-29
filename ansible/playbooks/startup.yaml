@@ -7,7 +7,7 @@
     - name: "Start this machine"
       local_action: command cloudiosays-startvm "{{ inventory_hostname }}"
   
-- hosts: "DELAYED"
+- hosts: "DELAYED_15"
   connection: local
   # concurrency is controlled via ansible.cfg:forks=1!
   tasks:
