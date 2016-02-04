@@ -4,6 +4,7 @@
   tasks:
     - name: "Inform virtual machine that it will shut down soon"
       shell: /sbin/srf-mpc-prepare-hibernate
+      ignore_errors: yes
     - name: "Shutdown this machine"
       connection: local
       local_action: command cloudiosays-stopvm "{{ inventory_hostname }}"
