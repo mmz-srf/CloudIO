@@ -1,9 +1,10 @@
 ---
 - hosts: "SERVICES:DATASLAVES:DATAMASTER"
   # concurrency is controlled via ansible.cfg:forks=1!
+  remote_user: deploy
   tasks:
     - name: "Inform virtual machine that it will shut down soon"
-      shell: /sbin/srf-mpc-prepare-hibernate
+      shell: sudo /sbin/srf-mpc-prepare-hibernate
       ignore_errors: yes
     - name: "Shutdown this machine"
       connection: local
