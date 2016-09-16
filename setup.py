@@ -17,4 +17,5 @@ setup(name='CloudIO',
     ''',
       packages=['CloudIO'],
       install_requires=['configparser'],
+      zip_safe=True,
       )
