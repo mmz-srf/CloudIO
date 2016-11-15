@@ -2,6 +2,8 @@
 - hosts: "SERVICES:DATASLAVES:DATAMASTER"
   # concurrency is controlled via ansible.cfg:forks=1!
   remote_user: deploy
+  # gather facts is not needed + does not respect the 300s timeout.
+  gather_facts: no
   tasks:
     - name: "Inform virtual machine that it will shut down soon"
       shell: sudo /sbin/srf-mpc-prepare-hibernate

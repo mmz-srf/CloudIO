@@ -1,8 +1,10 @@
 ---
 
 - hosts: "DATAMASTER:DATASLAVES:SERVICES"
-  connection: local
   # concurrency is controlled via ansible.cfg:forks=1!
+  connection: local
+  # no need to gather facts of stopped machines
+  gather_facts: no
   tasks:
     - name: "Start this machine"
       local_action: command cloudiosays-startvm "{{ inventory_hostname }}"
