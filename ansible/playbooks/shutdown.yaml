@@ -6,8 +6,8 @@
   gather_facts: no
   tasks:
     - name: "Inform virtual machine that it will shut down soon"
-      shell: sudo /sbin/srf-mpc-prepare-hibernate
       ignore_errors: yes
+      local_action: command ssh -vvvv "{{ inventory_hostname }}" sudo /sbin/srf-mpc-prepare-hibernate
     - name: "Shutdown this machine"
       connection: local
       local_action: command cloudiosays-stopvm "{{ inventory_hostname }}"
